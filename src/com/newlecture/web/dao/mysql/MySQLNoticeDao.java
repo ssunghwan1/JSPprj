@@ -130,6 +130,7 @@ public class MySQLNoticeDao implements NoticeDao{
 			codeSt.close();
 			
 			PreparedStatement st = con.prepareStatement(sql);
+
 			st.setString(1, code);
 			st.setString(2, notice.getTitle());
 			st.setString(3, notice.getWriter());
@@ -145,7 +146,6 @@ public class MySQLNoticeDao implements NoticeDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-				
 		return result;
 	}
 

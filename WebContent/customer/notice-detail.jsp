@@ -130,7 +130,7 @@
 						<li>공지사항</li>
 					</ul>
 				</div>
-				
+
 				<table border="1">
 					<tbody>
 						<tr>
