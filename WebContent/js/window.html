@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	body{
+		font-family: "맑은 고딕", "고딕", sans-seril;
+		font-size: 10px;
+		color: #979797;
+	}
+</style>
+<script>
+	window.addEventListener("load", function(){
+		var btnSum = document.getElementById("btn-sum");
+		var txtX = document.getElementById("txt-x");
+		var txtY = document.getElementById("txt-y");
+		var txtSum = document.getElementById("txt-sum");
+		
+		btnSum.onclick = btnResult;
+		
+		function btnResult(){
+			
+			/* var x = (number)(txtX.value);
+			var y = (number)(txtY.value); */
+			
+			// var x = txtX.value - 0;
+			
+			var x = parseInt(txtX.value);
+			var y = parseInt(txtY.value);
+			
+			txtSum.value = x + y;
+		}
+		
+	});
+	
+	/* -------------------------------------------------------------------------------- */
+	
+	window.addEventListener("load", function(e) {
+		var lblCount = document.getElementById("lbl-count");
+		var btnCountDown = document.getElementById("btn-countdown");
+		
+		// 상태변수
+		var timer = null;
+		// var timer == null 로 해서  if문에 timer == null 로 써도 됨.
+		
+		btnCountDown.onclick = function(){ // span은 value가 없다
+			
+			if(timer == null){ // 타이머가 없을 경우에
+				timer = setInterval(function() {
+					var count = parseInt(lblCount.innerText);
+					
+					if(count == 0) {// 타이머종료 , 카운트가 ....라면
+						clearInterval(timer);
+						timer = undefined;
+					}
+					else
+						lblCount.innerText = lblCount.innerText -1 ;
+				
+				}, 1000);
+			}
+		};
+	});
+	
+	/* -------------------------------------------------------------------------------- */
+	
+	window.addEventListener("load", function(e) {
+		var openButton = document.getElementById("open-button");
+		var closeButton = document.getElementById("close-button");
+		
+		var win = null;
+		
+		openButton.onclick = function() {
+			if(win == null)
+				win = open("http://www.newlecture.com/", "_blank", "width=500px, height=500px");
+				
+		};
+		
+		closeButton.onclick = function() {
+			if(win != null)
+				win.close();
+				win = null;
+		};
+	});
+	
+	/* -------------------------------------------------------------------------------- */
+	
+	window.addEventListener("load", function(e) {
+		var ifChange = document.getElementById("if-change");
+		ifChange.onclick = function() {
+			frames[0].document.body.innerText = "aaaaa";
+		};
+	});
+	
+	/* -------------------------------------------------------------------------------- */
+	
+	window.addEventListener("load", function(e) {
+		var win = document.getElementById("fid").contentWindow;
+		var urlText = document.getElementById("url-text");
+		var gogoButton = document.getElementById("gogo-button");
+		var f5Button = document.getElementById("f5-button");
+		var backButton = document.getElementById("back-button");
+		var forwardButton = document.getElementById("forward-button");
+		
+		gogoButton.onclick = function(){
+			//frames[0].location.href = "http://" + urlText.value;  /* "http://www.daum.net" */  /* urlText.value; */
+			win.location.href = "http://" + urlText.value;
+		};
+		
+		f5Button.onclick = function(){
+			win.location.reload();
+		};
+		
+		backButton.onclick = function(){
+			history.back();
+		};
+		
+		forwardButton.onclick = function(){
+			history.forward();
+		};
+		
+	});
+	
+</script>
+
+</head>
+<body>
+	<!-- <img src="../hello"/> -->
+	<hr />
+		http://<input id="url-text" type="text" value="www.daum.net" />
+		<input id="gogo-button" type="button" value="이동" />
+		<input id="f5-button" type="button" value="새로고침" />
+		<input id="back-button" type="button" value="back" />
+		<input id="forward-button" type="button" value="forward" />
+	<div style="width:500px; height:300px;">
+		<iframe id="fid" src="article.html" style="width:500px; height:300px; border: 0px;"></iframe>
+		<input id="if-change" type="button" value="변경" /><br/>
+	</div>
+	<hr />
+	<br/>
+	<br/>
+	<br/>
+	<div>
+		<input id="open-button" type="button" value="새창띄우기" /> <br/>
+		<input id="close-button" type="button" value="띄운창닫기" />
+	</div>
+	<hr />
+
+	<p>
+		남은시간 <span id="lbl-count">60</span>초 
+		<input id="btn-countdown" type="button" value="카운트 시작" />
+	</p>
+	<hr />
+
+	<p>
+		<label>x:</label><input id="txt-x" /> <label>y:</label><input
+			id="txt-y" />
+	</p>
+	<p>
+		sum = <input id="txt-sum" />
+	</p>
+	<p>
+		<input id="btn-sum" type="button" value="Sum" />
+	</p>
+
+</body>
+</html>
