@@ -85,4 +85,28 @@ public class OracleNoticeDao implements NoticeDao{
 		return 0;
 	}
 
+	@Override
+	public int update(Notice notice) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(String title, String content, String code) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(String code) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public NoticeView get(String code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

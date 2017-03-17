@@ -134,17 +134,17 @@ NoticeView n= noticeDao.get(code);
 						<li>공지사항</li>
 					</ul>
 				</div>
-
+				<form action="notice-edit-proc.jsp" method="post">
 				<table border="1">
 					<tbody>
 						<tr>
 							<th>제목</th>
-							<td><%=n.getTitle() %></td>
+							<td><input name="title" type="text" value="<%=n.getTitle() %>"/></td>
 						</tr>
 						
 						<tr>
 							<th>작성자</th>
-							<td><%= n.getWriter()%></td>
+							<td><input type="text" value="<%= n.getWriter()%>"/></td>
 						</tr>
 						
 						
@@ -159,21 +159,22 @@ NoticeView n= noticeDao.get(code);
 							<td><%=n.getHit()%></td>
 						</tr>
 						<tr>
-							<td colspan="2">
-								<%=n.getContent()%>
+							<td colspan="2">`
+								<textarea name="content" rows="20" cols="80"><%=n.getContent()%></textarea>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				<div>
-					<a href="notice-edit.jsp?c=<%=n.getCode()%>">수정</a>
+					<input type="hidden" name="code" value="<%=code %>"/>
+					<input type="submit" value = "저장"/>
 					<a href="notice-del-proc.jsp?c=<%=n.getCode()%>">삭제</a>
-					<a href="notice-del-proc.jsp?c=<%=n.getCode()%>"></a>
 				</div>
-				
+				</form>
 			</main>
 
 		</div>
+		
 	</div>
 
 	<!-- -----------------------------------------------푸터---------------------------------------------------------- -->

@@ -35,7 +35,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>으갹갹갹</title>
+<title>SSUNG</title>
 <link href="../css/customer/style.css" type="text/css" rel="stylesheet" />
 <script src="../js/customer/notice.js"> </script>
 
@@ -44,14 +44,25 @@
 		
 		var moreButton = document.querySelector("#more-button");
 
+		var data = JSON.parse('[{"code":"1", "title":"오오오"},{"code":"2", "title":"요요요"},{"code":"3", "title":"유유유"}]');
+		alert(data[1].title);
+		
+		/*
 		var notices = [
 			{code:"1", title:"오오오"},
 			{code:"2", title:"요요요"},
 			{code:"3", title:"유유유"}
-		];
+		];*/
 		
+		//var request= new ActiveXObjet("Microsoft.XMLHTTP");
 		
 		moreButton.onclick = function(){
+		
+			var request= new window.XMLHttpRequest();
+			request.open("GET","ajax-data.jsp?p=2",false); //데이터만 받아올수 있다
+			request.send();
+			var notice = JSON.parse(request.responseText);			
+			
 			var template = document.querySelector("#notice-row");
 			
 			for(var i in notices){
@@ -233,7 +244,7 @@
 						%>
 						<tr>
 							<td><%=v.getCode()%></td>
-							<td><a href="notice-detail.jsp?c=<%=v.getCode()%>"><%=v.getTitle()%></a></td>
+							<td><%=v.getTitle()%></td>
 							<td><%=v.getWriter()%></td>
 							<td><%=v.getRegDate()%></td>
 							<td><%=v.getHit()%></td>

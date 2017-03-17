@@ -54,14 +54,15 @@ public class MySQLMemberDao implements MemberDao {
 	public int add(Member member) {
 		
 		String sql = "INSERT INTO MEMBER(MID,PWD,NAME,PHONE,REGDATE) VALUES(?,?,?,?,SYSDATE)"; // Member가 갖고 있는것을 꽂아넣는 작업
-		List<Member> list = new ArrayList<>();
+		//List<Member> list = new ArrayList<>();
 		
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
+			Class.forName("oracle.jdbc.driver.OracleDriver");			
 			String url = "jdbc:oracle:thin:@211.238.142.251:1521:orcl"; 
 			Connection con = DriverManager.getConnection(url, "c##sist", "dclass"); 
+			
 			// Statement st = con.createStatement(); // 꽂아넣는 능력은 없고 실행만 가능
+			
 			PreparedStatement st = con.prepareStatement(sql);			
 			st.setString(1, member.getId());
 			st.setString(2, member.getPwd());
