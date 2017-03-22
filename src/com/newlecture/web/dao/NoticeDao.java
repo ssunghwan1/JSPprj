@@ -1,4 +1,4 @@
-package com.newlecture.web.data.dao;
+package com.newlecture.web.dao;
 
 import java.util.List;
 
@@ -14,6 +14,8 @@ public interface NoticeDao {
 	
 	
 	NoticeView get(String code);
+	NoticeView getPrev(String code);
+	NoticeView getNext(String code);
 	
 	List<NoticeView> getList(); 
 	List<NoticeView> getList(int page);

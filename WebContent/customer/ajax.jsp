@@ -43,9 +43,9 @@
 	window.addEventListener("load", function(e) {
 		
 		var moreButton = document.querySelector("#more-button");
-
+		var regButton = document.querySelector("#reg-button");
 		var data = JSON.parse('[{"code":"1", "title":"오오오"},{"code":"2", "title":"요요요"},{"code":"3", "title":"유유유"}]');
-		alert(data[1].title);
+		//alert(data[1].title);
 		
 		/*
 		var notices = [
@@ -53,28 +53,59 @@
 			{code:"2", title:"요요요"},
 			{code:"3", title:"유유유"}
 		];*/
-		
-		//var request= new ActiveXObjet("Microsoft.XMLHTTP");
-		
-		moreButton.onclick = function(){
-		
-			var request= new window.XMLHttpRequest();
-			request.open("GET","ajax-data.jsp?p=2",false); //데이터만 받아올수 있다
-			request.send();
-			var notice = JSON.parse(request.responseText);			
+	
+		regButton.onclick = function(){
+			var request = new window.XMLHttpRequest();
+			request.open("GET","notice-reg-partial.jsp",true)
+			request.onload=function(){
+				var form = request.responseText;
 			
-			var template = document.querySelector("#notice-row");
-			
-			for(var i in notices){
-				var tbody = document.querySelector(".notice-table tbody");
-				var tds = template.content.querySelectorAll("td");
-				
-				tds[0].innerText = notices[i].code;
-				tds[1].innerText = notices[i].title;
-				
-				var clone = document.importNode(template.content, true);
-				tbody.appendChild(clone);
 			};
+
+			request.send();
+
+			return false;
+		};
+
+		moreButton.onclick = function(){
+			var request= new window.XMLHttpRequest();
+			request.open("GET","ajax-data.jsp?p=2",true); //데이터만 받아올수 있다
+			request.onload= function(){
+		    //if(request.readyState==4){	
+					
+					var notices = JSON.parse(request.responseText);
+					
+					var template = document.querySelector("#notice-row");
+					
+					for(var i in notices){
+						var tbody = document.querySelector(".notice-table tbody");
+						var tds = template.content.querySelectorAll("td");
+						
+						tds[0].innerText = notices[i].code;
+						tds[1].innerText = notices[i].title;
+						
+						var clone = document.importNode(template.content, true);
+						tbody.appendChild(clone);
+				//	};
+					
+					document.body.removeChild(screen);
+				}
+			};
+			
+			.0
+			request.send();
+			
+			var screen = documet.createElement("div");
+			screen.style.width="100%";
+			screen.style.height="100%";
+			screen.style.position="fixed";
+			screen.style.left="0px";
+			screen.style.top="0px";
+			
+			screen.style.background="#000";
+			screen.style.opacity= "0.5";
+			
+			document.body.appendChild(screen);
 		};
 	});
 </script>
@@ -201,17 +232,19 @@
 				<form class="main-margin">
 					<fieldset>
 						<legend class="hidden">검색필드</legend>
-						<label class="hidden">검색분류</label> <select name="f">
+						<label class="hidden">검색분류</label> 
+						<select name="f">
 							<option value="TITLE" <%if (field.equals("TITLE")) {%> selected
 								<%}%>>제목</option>
 							<option value="CONTENT" <%if (field.equals("CONTENT")) {%>
 								selected <%}%>>내용</option>
-						</select> <label class="hidden">검색어</label> <input name="q" type="text"
-							value="<%=query%>" placeholder="검색어를 입력하세요" /> <input
-							class="btn btn-search" type="submit" value="검색" /> <input
-							type="hidden" name="p" value="1" />
+						</select> 	
+						<label class="hidden">검색어</label> 
+							<input name="q" type="text" value="<%=query%>" placeholder="검색어를 입력하세요" />
+							 <input class="btn btn-search" type="submit" value="검색" /> 
+							 <input type="hidden" name="p" value="1" />
 					</fieldset>
-				</form>
+					</form>
 
 			</div>
 
@@ -287,7 +320,7 @@
 			</div>
 
 			<div>
-				<a href="notice-reg.jsp">글쓰기</a>
+				<a id="reg-button" href="notice-reg.jsp">글쓰기</a>
 				<span id="more-button">더보기</span>
 			</div>
 			</main>

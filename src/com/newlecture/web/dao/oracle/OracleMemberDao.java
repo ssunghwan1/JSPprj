@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.newlecture.web.data.dao.MemberDao;
+import com.newlecture.web.dao.MemberDao;
 import com.newlecture.web.data.entity.Member;
 
 public class OracleMemberDao implements MemberDao {

@@ -9,8 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import com.newlecture.web.data.dao.NoticeDao;
+import com.newlecture.web.dao.NoticeDao;
 import com.newlecture.web.data.entity.Member;
 import com.newlecture.web.data.entity.Notice;
 import com.newlecture.web.data.view.NoticeView;
@@ -121,7 +120,93 @@ public class MySQLNoticeDao implements NoticeDao{
 
 	}
 	
+	@Override
+	public NoticeView getPrev(String code) {
+		String sql = "SELECT * FROM NOTICE WHERE CAST(CODE AS unsigned)< CAST(? AS unsigned) ORDER BY REGDATE DESC LIMIT 0,1;"; //데이터에만 ? 사용 가능하기 때문에, title은 "+field+"라고 씀
+		NoticeView notice = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");			
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8"; // DB연결
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass"); // 드라이브 로드
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, code);
+					
+			ResultSet rs = st.executeQuery();
+			
+		
+			while (rs.next()) {
+				notice = new NoticeView();
+				notice.setCode(rs.getString("CODE"));
+				notice.setTitle(rs.getString("TITLE"));
+				notice.setContent(rs.getString("CONTENT"));
+				notice.setWriter(rs.getString("WRITER"));
+				notice.setRegDate(rs.getDate("REGDATE"));
+				notice.setHit(rs.getInt("HIT"));
+				//NoticeView 컬럼
+				notice.setWriterName(rs.getString("WRITER_NAME"));
+				notice.setCommentCount(rs.getInt("COMMENT_COUNT"));
+		
+			}
+
+			rs.close();
+			st.close();
+			con.close();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return notice;
+
+	}
 	
+
+
+	@Override
+	public NoticeView getNext(String code) {
+		String sql = "SELECT * FROM NOTICE WHERE CAST(CODE AS unsigned)> CAST(? AS unsigned) ORDER BY REGDATE LIMIT 0,1"; //데이터에만 ? 사용 가능하기 때문에, title은 "+field+"라고 씀
+		NoticeView notice = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");			
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8"; // DB연결
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass"); // 드라이브 로드
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, code);
+					
+			ResultSet rs = st.executeQuery();
+			
+		
+			while (rs.next()) {
+				notice = new NoticeView();
+				notice.setCode(rs.getString("CODE"));
+				notice.setTitle(rs.getString("TITLE"));
+				notice.setContent(rs.getString("CONTENT"));
+				notice.setWriter(rs.getString("WRITER"));
+				notice.setRegDate(rs.getDate("REGDATE"));
+				notice.setHit(rs.getInt("HIT"));
+				//NoticeView 컬럼
+				notice.setWriterName(rs.getString("WRITER_NAME"));
+				notice.setCommentCount(rs.getInt("COMMENT_COUNT"));
+		
+			}
+
+			rs.close();
+			st.close();
+			con.close();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return notice;
+
+	}
 	
 	public List<NoticeView> getList() {
 		return getList(1, "TITLE", "");
@@ -273,9 +358,4 @@ public class MySQLNoticeDao implements NoticeDao{
 		
 		return update(notice);
 	}
-
-
-
-
-
 }

@@ -11,7 +11,7 @@ public class Notice {
 	private Date regDate;
 	private int hit;
 
-
+	
 	public String getCode() {
 		return code;
 	}

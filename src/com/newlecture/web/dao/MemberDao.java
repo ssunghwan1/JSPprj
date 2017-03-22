@@ -1,4 +1,4 @@
-package com.newlecture.web.data.dao;
+package com.newlecture.web.dao;
 
 import java.util.List;
 

@@ -9,15 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.newlecture.web.dao.MemberDao;
+import com.newlecture.web.dao.NoticeFileDao;
 import com.newlecture.web.data.entity.Member;
+import com.newlecture.web.data.entity.Notice;
+import com.newlecture.web.data.entity.NoticeFile;
 
-public class MySQLMemberDao implements MemberDao {
+public class MySQLNoticeFileDao implements NoticeFileDao{
 
-	@Override
-	public List<Member> getList(String query) {
-		String sql = "SELECT * FROM MEMBER WHERE ID LIKE '%" + query + "%'";
-		List<Member> list = new ArrayList<>();
+
+	public List<NoticeFile> getList(String noticeCode) {
+		String sql = "SELECT * FROM NOTICE_FILE";
+		List<NoticeFile> list = new ArrayList<>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -27,14 +29,19 @@ public class MySQLMemberDao implements MemberDao {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			
-			Member member = null;
-
+			//Member member = null;
+			NoticeFile noticefile=null;
 			while (rs.next()) {
-				member = new Member();
-				member.setId(rs.getString("ID"));
-				member.setPwd(rs.getString("PWD"));
-
-				list.add(member);
+				noticefile = new NoticeFile();
+				noticefile.setCode("code");
+				noticefile.setNoticeCode("noticeCode");
+				list.add(noticefile);
+				
+//				member = new Member();
+//				member.setId(rs.getString("ID"));
+//				member.setPwd(rs.getString("PWD"));
+//
+//				list.add(member);
 			}
 
 			rs.close();
@@ -51,11 +58,9 @@ public class MySQLMemberDao implements MemberDao {
 	}
 
 	@Override
-	public int add(Member member) {
-		
-		String sql = "INSERT INTO MEMBER(MID,PWD,NAME,PHONE,REGDATE) VALUES(?,?,?,?,SYSDATE)"; // Member가 갖고 있는것을 꽂아넣는 작업
-		//List<Member> list = new ArrayList<>();
-		
+	public int add(NoticeFile file) {
+		String sql = "INSERT INTO NOTICE_FILE (CODE, SRC, NOTICE_CODE) VALUES(?,?,?)"; // Member가 갖고 있는것을 꽂아넣는 작업
+
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");			
 			String url = "jdbc:oracle:thin:@211.238.142.251:1521:orcl"; 
@@ -64,10 +69,10 @@ public class MySQLMemberDao implements MemberDao {
 			// Statement st = con.createStatement(); // 꽂아넣는 능력은 없고 실행만 가능
 			
 			PreparedStatement st = con.prepareStatement(sql);			
-			st.setString(1, member.getId());
-			st.setString(2, member.getPwd());
-			st.setString(3, member.getName());
-			st.setString(4, member.getPhone());
+			st.setString(1, file.getCode());
+			st.setString(2, file.getSrc());
+			st.setString(3, file.getNoticeCode());
+	
 
 			// 결과가 있는 쿼리 executeQuery()
 			// SELECT
@@ -87,6 +92,14 @@ public class MySQLMemberDao implements MemberDao {
 		}
 		
 		return 0;
+	}
+
+	@Override
+	public int add(String src, String noticeCode) {
+		NoticeFile noticefile = new NoticeFile();
+		noticefile.setSrc(src);
+		noticefile.setNoticeCode(noticeCode);	
+		return add(noticefile);
 	}
 
 }

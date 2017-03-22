@@ -10,6 +10,7 @@
 String code = request.getParameter("c");
 NoticeDao noticeDao=new MySQLNoticeDao();
 NoticeView n= noticeDao.get(code);
+
 %>
     
 <!DOCTYPE html>

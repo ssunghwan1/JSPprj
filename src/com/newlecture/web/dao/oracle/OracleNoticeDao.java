@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.newlecture.web.data.dao.NoticeDao;
+import com.newlecture.web.dao.NoticeDao;
 import com.newlecture.web.data.entity.Member;
 import com.newlecture.web.data.entity.Notice;
 import com.newlecture.web.data.view.NoticeView;

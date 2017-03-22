@@ -3,8 +3,8 @@ import javax.imageio.ImageIO;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.newlecture.web.dao.MemberDao;
 import com.newlecture.web.dao.mysql.MySQLMemberDao;
-import com.newlecture.web.data.dao.MemberDao;
 import com.newlecture.web.data.entity.Member;
 
 import java.awt.Color;

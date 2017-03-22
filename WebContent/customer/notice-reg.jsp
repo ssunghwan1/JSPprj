@@ -131,12 +131,16 @@
 					</ul>
 				</div>
 				
-				<form action="notice-reg-proc.jsp" method="post">
+				<form action="notice-reg-proc.jsp" method="post" enctype="multipart/form-data">
 					<table border="1">
 						<tbody>
 							<tr>
 								<th>제목</th>
 								<td><input type="text" name="title"/></td>
+							</tr>
+							<tr>
+								<th>파일선택</th>
+								<td><input type="file" name = "file"/></td>
 							</tr>
 							<tr>
 								<td colspan="2">
