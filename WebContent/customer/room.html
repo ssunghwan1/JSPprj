@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<style>
+	#jaega{
+		width: 700px;
+		height: 500px;
+		border: 1px solid indigo;
+	}
+	#toolbar{
+		background:gray;
+		height:100px;
+	}
+	#room{
+		position: relative;
+		left: 0px;
+		top: 0px;
+		background: yellow;
+		height: 400px;
+	}
+	
+	#room div{
+		position: absolute;
+		left : 50px;
+		top: 10px;
+		
+		
+		width:100px;
+		height: 60px;
+		background:green;
+		border-radius: 10px;
+		box-shadow: 2px 2px 2px #474747;
+		
+ 		transition-duration:0.5s;
+		transition-property: left,top,transform;
+		transition-timingfunction: ease-out, ease-out, ease-in-out;
+	
+	}
+	
+	#rorm div:hover{
+		transform-origin:right top;
+		 transform: skew(15deg, 0deg);
+		 
+	}
+</style>
+<script>
+	window.addEventListener("load",function(){
+		var room = document.querySelector("#room");
+		
+		var divs= document.querySelectorAll("#room div");
+		
+		room.onclick = function(event){
+			if(event.target === event.currentTarget)
+				return;
+			
+			event.target.style.border="2px solid blue";
+			event.currentTarget.style.border="2px solid red";
+		};
+		
+		var zoomInButton = document.querySelector("#zoom-in-button");
+		
+		zoomInButton.onclick = function(){
+		
+			for(var i=0; i<divs.length;i++){
+			divs[i].style.left=divs[i].dataset.dx;
+			divs[i].style.top=divs[i].dataset.dy;
+			divs[i].style.transform="rotate(360deg)"; 
+			divs[i].style.transitionDelay = (i/3)+"s";
+			} 
+		};
+		
+	});
+</script>
+<body>
+	<h1>교실</h1>
+	<div id="jaega">
+		<div id="toolbar">
+			<input id ="zoom-in-button" type="button" value="zoom in"/>
+		</div>
+		
+		<div id="room">
+		<div data-sx="" data-sy="" data-dx="100px" data-dy="100px">1</div>
+         <div data-sx="" data-sy="" data-dx="220px" data-dy="100px">2</div>
+         <div data-sx="" data-sy="" data-dx="340px" data-dy="100px">3</div>
+         <div data-sx="" data-sy="" data-dx="460px" data-dy="100px">4</div>
+         <div data-sx="" data-sy="" data-dx="100px" data-dy="200px">5</div>
+         <div data-sx="" data-sy="" data-dx="220px" data-dy="200px">6</div>
+         <div data-sx="" data-sy="" data-dx="340px" data-dy="200px">7</div>
+         <div data-sx="" data-sy="" data-dx="460px" data-dy="200px">8</div>   
+		
+		</div>
+	</div>
+</body>
+</html>

@@ -88,5 +88,36 @@ public class MySQLMemberDao implements MemberDao {
 		
 		return 0;
 	}
+	public Member get(String id) {
+		System.out.println(id);
+		String sql = "SELECT * FROM MEMBER WHERE ID ='" + id+"'";
+		Member member = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass");
+			Statement st = con.createStatement();
+			
+			ResultSet rs = st.executeQuery(sql);
+
+			if (rs.next()) {
+				member = new Member();
+				member.setId(rs.getString("ID"));
+				member.setPwd(rs.getString("PWD"));
+			}
+
+			rs.close();
+			st.close();
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return member;
+	}
 
 }

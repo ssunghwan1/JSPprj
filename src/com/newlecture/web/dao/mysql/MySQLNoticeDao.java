@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.newlecture.web.dao.NoticeDao;
-import com.newlecture.web.data.entity.Member;
 import com.newlecture.web.data.entity.Notice;
-import com.newlecture.web.data.view.NoticeView;
+import com.newlecture.web.data.entity.NoticeView;
+
 
 public class MySQLNoticeDao implements NoticeDao{
 	
@@ -86,12 +86,12 @@ public class MySQLNoticeDao implements NoticeDao{
 			Class.forName("com.mysql.jdbc.Driver");			
 			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8"; // DB연결
 			Connection con = DriverManager.getConnection(url, "newlec", "sclass"); // 드라이브 로드
+			
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, code);
 					
 			ResultSet rs = st.executeQuery();
 			
-		
 			while (rs.next()) {
 				notice = new NoticeView();
 				notice.setCode(rs.getString("CODE"));
@@ -357,5 +357,34 @@ public class MySQLNoticeDao implements NoticeDao{
 		notice.setContent(content);		
 		
 		return update(notice);
+	}
+
+
+	@Override
+	public String lastCode() {
+		String sql = "SELECT MAX(CAST(CODE AS unsigned)) CODE FROM NOTICE"; //NOTICE_VIEW로 하게되면 JOIN한 결과도 검색됨
+		String code="1";	
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String url = "jdbc:mysql://211.238.142.84/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8"; // DB연결
+			Connection con = DriverManager.getConnection(url, "newlec", "sclass"); // 드라이브 로드
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			if(rs.next())
+				code = rs.getString("CODE");
+
+			rs.close();
+			st.close();
+			con.close();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return code;
 	}
 }

@@ -11,7 +11,7 @@ import java.util.List;
 import com.newlecture.web.dao.NoticeDao;
 import com.newlecture.web.data.entity.Member;
 import com.newlecture.web.data.entity.Notice;
-import com.newlecture.web.data.view.NoticeView;
+import com.newlecture.web.data.entity.NoticeView;
 
 public class OracleNoticeDao implements NoticeDao{
 
@@ -103,8 +103,27 @@ public class OracleNoticeDao implements NoticeDao{
 		return 0;
 	}
 
+
 	@Override
-	public NoticeView get(String code) {
+	public String lastCode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public com.newlecture.web.data.entity.NoticeView get(String code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public com.newlecture.web.data.entity.NoticeView getPrev(String code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public com.newlecture.web.data.entity.NoticeView getNext(String code) {
 		// TODO Auto-generated method stub
 		return null;
 	}

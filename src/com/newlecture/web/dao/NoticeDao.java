@@ -3,11 +3,12 @@ package com.newlecture.web.dao;
 import java.util.List;
 
 import com.newlecture.web.data.entity.Notice;
-import com.newlecture.web.data.view.NoticeView;
+import com.newlecture.web.data.entity.NoticeView;
+
 
 public interface NoticeDao {
 	
-	
+	String lastCode();
 	int update(Notice notice);
 	int update(String title, String content, String code);
 	int delete(String code);
